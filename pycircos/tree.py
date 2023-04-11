@@ -144,22 +144,28 @@ class Tarc(Garc):
             self._tree_direction = "outer"
         
         self._convert(thetalim, rlim)
+        thetas = []
+        rs     = []
         s   = []
         c   = []
         ecs = []
         lws = []
         for clade in self._theta_dict:
+            if not clade.is_terminal():
+                continue
             if clade.name not in cladevisual_dict:
                 cladevisual_dict[clade.name] = {}
             cladevisual_dict[clade.name].setdefault("size",0) 
             cladevisual_dict[clade.name].setdefault("color","k")
             cladevisual_dict[clade.name].setdefault("edgecolor","k")
             cladevisual_dict[clade.name].setdefault("linewidth",0.1)
+            thetas.append(self._theta_dict[clade])
+            rs.append(self._r_dict[clade])
             s.append(cladevisual_dict[clade.name]["size"])
             c.append(cladevisual_dict[clade.name]["color"])
             ecs.append(cladevisual_dict[clade.name]["edgecolor"])
             lws.append(cladevisual_dict[clade.name]["linewidth"])
-        ax.scatter(self._theta_dict.values(), [self._r_dict[clade] for clade in self._theta_dict], s=s, c=c, edgecolors=ecs, linewidths=lws, zorder=1100) 
+        ax.scatter(thetas, rs, s=s, c=c, edgecolors=ecs, linewidths=lws, zorder=1100) 
         for clade in self._theta_dict:
             subclades   = clade.clades
             if len(subclades) > 0:
