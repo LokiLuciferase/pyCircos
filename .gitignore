@@ -9,3 +9,4 @@
 /dist/
 /pycircos/tree.py
 /pycircos.egg-info/
+python_circos.egg-info/
