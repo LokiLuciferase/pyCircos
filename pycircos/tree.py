@@ -192,14 +192,14 @@ class Tarc(Garc):
             highlight_dict[clade_names].setdefault("label", None)
             highlight_dict[clade_names].setdefault("y", None)
             highlight_dict[clade_names].setdefault("fontsize", self.labelsize)
-            highlight_dict[clade_names].setdefault("rot", 0)
+            highlight_dict[clade_names].setdefault("rotation", 0)
             
             color    = highlight_dict[clade_names]["color"]
             alpha    = highlight_dict[clade_names]["alpha"]
             label    = highlight_dict[clade_names]["label"]
             fontsize = highlight_dict[clade_names]["fontsize"]
             yloc     = highlight_dict[clade_names]["y"]
-            rot_add  = highlight_dict[clade_names]["rot"]
+            rot_add  = highlight_dict[clade_names]["rotation"]
 
             if type(clade_names) is tuple:
                 ca     = self.tree.common_ancestor([self.clade_dict[name] for name in clade_names])
