@@ -192,14 +192,16 @@ class Tarc(Garc):
             highlight_dict[clade_names].setdefault("label", None)
             highlight_dict[clade_names].setdefault("y", None)
             highlight_dict[clade_names].setdefault("fontsize", self.labelsize)
+            highlight_dict[clade_names].setdefault("fontcolor", "black")
             highlight_dict[clade_names].setdefault("rotation", 0)
             
-            color    = highlight_dict[clade_names]["color"]
-            alpha    = highlight_dict[clade_names]["alpha"]
-            label    = highlight_dict[clade_names]["label"]
-            fontsize = highlight_dict[clade_names]["fontsize"]
-            yloc     = highlight_dict[clade_names]["y"]
-            rot_add  = highlight_dict[clade_names]["rotation"]
+            color     = highlight_dict[clade_names]["color"]
+            alpha     = highlight_dict[clade_names]["alpha"]
+            label     = highlight_dict[clade_names]["label"]
+            fontsize  = highlight_dict[clade_names]["fontsize"]
+            fontcolor = highlight_dict[clade_names]["fontcolor"]
+            yloc      = highlight_dict[clade_names]["y"]
+            rot_add   = highlight_dict[clade_names]["rotation"]
 
             if type(clade_names) is tuple:
                 ca     = self.tree.common_ancestor([self.clade_dict[name] for name in clade_names])
@@ -229,7 +231,7 @@ class Tarc(Garc):
                         rot = -1 * rot
                     if yloc is None:
                         yloc = self._tree_rlim[1] - abs(self._tree_rlim[1]-self._tree_rlim[0]) * 0.1
-                    ax.text(loc, yloc, str(label), rotation=rot, ha="center", va="center", fontsize=fontsize, zorder=1000 + maxc_r + 0.1)
+                    ax.text(loc, yloc, str(label), rotation=rot, color=fontcolor, ha="center", va="center", fontsize=fontsize, zorder=1000 + maxc_r + 0.1)
 
             else:
                 c_rs       = [self._r_dict[c] for c in clades] 
@@ -247,7 +249,7 @@ class Tarc(Garc):
                         rot = -1 * rot 
                     if yloc is None:
                         yloc = self._tree_rlim[1] + abs(self._tree_rlim[1]-self._tree_rlim[0]) * 0.1
-                    ax.text(loc, yloc, str(label), rotation=rot, ha="center", va="center", fontsize=fontsize, zorder=1000 + (-1 * minc_r) + 0.1)
+                    ax.text(loc, yloc, str(label), rotation=rot, color=fontcolor, ha="center", va="center", fontsize=fontsize, zorder=1000 + (-1 * minc_r) + 0.1)
 
 class Tcircle(Gcircle):
     """
