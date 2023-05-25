@@ -886,7 +886,7 @@ class Gcircle:
         if spine == True:
             self.setspine(garc_id, raxis_range)
     
-    def heatmap(self, garc_id, data, positions=None, width=None, raxis_range=(550, 600), cmap=None, vmin=None, vmax=None, edgecolor="#303030", linewidth=0.0, spine=False):  
+    def heatmap(self, garc_id, data, positions=None, width=None, raxis_range=(550, 600), cmap=None, vmin=None, vmax=None, edgecolor="#303030", linewidth=0.0, spine=False, is_categorical=False):
         """
         Visualize magnitudes of data values by color scale in the sector
         corresponding to the arc of the Garc class object specified by garc_id.
@@ -923,6 +923,8 @@ class Gcircle:
         spine : bool, optional
             If True, spines of the Garc object is shown on the arc section.
             The default is False.
+        is_categorical : bool, optional
+            If True, the data is treated as categorical data. The default is False.
 
         Returns
         -------
@@ -961,19 +963,22 @@ class Gcircle:
             cmap = Gcircle.cmaps[self.cmap_cycle % len(Gcircle.cmaps)] 
             self.cmap_cycle += 1
 
-        if vmax is None:
+        if vmax is None and not is_categorical:
             max_value = max(data)
         else:
             max_value = vmax
         
-        if vmin is None:
+        if vmin is None and not is_categorical:
             min_value = min(data) 
         else:
             min_value = vmin
         
         facecolors = [] 
         for d in data:
-            facecolors.append(cmap(d/(max_value-min_value if max_value != min_value else 1)))
+            if is_categorical:
+                facecolors.append(cmap(d))
+            else:
+                facecolors.append(cmap(d/(max_value-min_value if max_value != min_value else 1)))
         self.ax.bar(positions, height=[height] * len(positions), width=width, bottom=bottom, color=facecolors, edgecolor=edgecolor, linewidth=linewidth, align="edge")  
 
         if spine == True:
