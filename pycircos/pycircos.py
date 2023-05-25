@@ -973,7 +973,7 @@ class Gcircle:
         
         facecolors = [] 
         for d in data:
-            facecolors.append(cmap(d/(max_value-min_value)))
+            facecolors.append(cmap(d/(max_value-min_value if max_value != min_value else 1)))
         self.ax.bar(positions, height=[height] * len(positions), width=width, bottom=bottom, color=facecolors, edgecolor=edgecolor, linewidth=linewidth, align="edge")  
 
         if spine == True:
